@@ -19,7 +19,7 @@ export default function DashboardLayout() {
         
         <nav className={styles.nav}>
           <Link 
-            to="/dashboard" 
+            to="/" 
             className={`${styles.navLink} ${isActive('/dashboard') ? styles.active : ''}`}
           >
             <span className={styles.navIcon}>🏠</span>
