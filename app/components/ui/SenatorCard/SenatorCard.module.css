@@ -1,0 +1,138 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+  border-radius: 16px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #333;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  border-color: #4f46e5;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #374151;
+  transition: border-color 0.3s ease;
+}
+
+.card:hover .image {
+  border-color: #6366f1;
+}
+
+.content {
+  text-align: center;
+  flex: 1;
+}
+
+.name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #f9fafb;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.fullName {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.party {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.state {
+  background: #374151;
+  color: #d1d5db;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.role {
+  margin-top: auto;
+}
+
+.participation {
+  display: inline-block;
+  background: #1f2937;
+  color: #9ca3af;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .card {
+    padding: 16px;
+  }
+  
+  .image {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .name {
+    font-size: 1rem;
+  }
+  
+  .fullName {
+    font-size: 0.8125rem;
+  }
+}

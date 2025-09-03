@@ -1,0 +1,135 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+}
+
+.header {
+  background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  text-decoration: none;
+  color: #f9fafb;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navLink {
+  color: #9ca3af;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: #f9fafb;
+}
+
+.authSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userName {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.main {
+  flex: 1;
+}
+
+.footer {
+  background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+  border-top: 1px solid #333;
+  margin-top: auto;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerText {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footerLink {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.footerLink:hover {
+  color: #f9fafb;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .headerContent {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .authSection {
+    gap: 0.5rem;
+  }
+  
+  .footerContent {
+    padding: 1.5rem 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .footerLinks {
+    gap: 1rem;
+  }
+}

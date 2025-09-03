@@ -1,0 +1,170 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+}
+
+.sidebar {
+  width: 280px;
+  background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebarHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid #333;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f9fafb;
+  margin: 0;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.navLink:hover {
+  color: #f9fafb;
+  background: rgba(99, 102, 241, 0.1);
+  border-left-color: #6366f1;
+}
+
+.navLink.active {
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+  border-left-color: #6366f1;
+}
+
+.navIcon {
+  font-size: 1.25rem;
+  width: 20px;
+  text-align: center;
+}
+
+.sidebarFooter {
+  padding: 1.5rem;
+  border-top: 1px solid #333;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.userName {
+  color: #f9fafb;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.userEmail {
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: transparent;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.logoutButton:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+}
+
+.main {
+  flex: 1;
+  margin-left: 280px;
+  overflow-y: auto;
+}
+
+.content {
+  min-height: 100vh;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+  }
+  
+  .main {
+    margin-left: 0;
+  }
+  
+  .nav {
+    display: flex;
+    overflow-x: auto;
+    padding: 0.5rem;
+  }
+  
+  .navLink {
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.5rem 1rem;
+  }
+  
+  .navLink:hover,
+  .navLink.active {
+    border-left: none;
+    border-bottom-color: #6366f1;
+  }
+}
