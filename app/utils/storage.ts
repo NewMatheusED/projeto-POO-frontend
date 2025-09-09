@@ -131,7 +131,7 @@ export class LocalStorage {
     if (!this.available) return 0;
     
     try {
-      return localStorage.length;
+      return (localStorage as any).length;
     } catch {
       return 0;
     }
@@ -234,7 +234,7 @@ export class SessionStorage {
     if (!this.available) return 0;
     
     try {
-      return sessionStorage.length;
+      return (sessionStorage as any).length;
     } catch {
       return 0;
     }

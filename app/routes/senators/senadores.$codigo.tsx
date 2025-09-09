@@ -174,27 +174,44 @@ export default function SenadorDetalhePage() {
             <div className={styles.detailCard}>
               <h3 className={styles.cardTitle}>Serviços Disponíveis</h3>
               <div className={styles.servicesList}>
-                {OutrasInformacoes.Servico.map((servico, index) => (
-                  <div key={index} className={styles.serviceItem}>
-                    <h4 className={styles.serviceName}>{servico.NomeServico}</h4>
-                    {servico.DescricaoServico && (
-                      <p className={styles.serviceDescription}>{servico.DescricaoServico}</p>
-                    )}
-                    {servico.UrlServico && (
-                      <a 
-                        href={servico.UrlServico} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className={styles.serviceLink}
-                      >
-                        Acessar serviço →
-                      </a>
-                    )}
-                  </div>
+                {OutrasInformacoes.Servico
+                  .filter(servico => servico.NomeServico.toLowerCase().includes('vot'))
+                  .map((servico, index) => (
+                    <div key={index} className={styles.serviceItem}>
+                      <h4 className={styles.serviceName}>{servico.NomeServico}</h4>
+                      {servico.DescricaoServico && (
+                        <p className={styles.serviceDescription}>{servico.DescricaoServico}</p>
+                      )}
+                      {servico.UrlServico && (
+                        <a 
+                          href={servico.UrlServico} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className={styles.serviceLink}
+                        >
+                          Acessar serviço →
+                        </a>
+                      )}
+                    </div>
                 ))}
               </div>
             </div>
           )}
+
+          <div className={styles.detailCard}>
+            <h3 className={styles.cardTitle}>Histórico de Votações</h3>
+            <div className={styles.votingSection}>
+              <p className={styles.votingDescription}>
+                Consulte o histórico completo de votações deste senador nos projetos do Senado Federal.
+              </p>
+              <Link 
+                to={`/senators/${codigo}/votes`} 
+                className={styles.votingLink}
+              >
+                Ver Histórico de Votações →
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

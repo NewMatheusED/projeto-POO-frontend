@@ -18,6 +18,9 @@ export default function PublicLayout() {
             <Link to="/senators" className={styles.navLink}>
               Senadores
             </Link>
+            <Link to="/projects" className={styles.navLink}>
+              Projetos
+            </Link>
             
             {isAuthenticated ? (
               <div className={styles.authSection}>
@@ -58,6 +61,9 @@ export default function PublicLayout() {
           <div className={styles.footerLinks}>
             <Link to="/senators" className={styles.footerLink}>
               Senadores
+            </Link>
+            <Link to="/projects" className={styles.footerLink}>
+              Projetos
             </Link>
             <Link to="/auth/login" className={styles.footerLink}>
               Login

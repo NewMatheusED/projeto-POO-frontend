@@ -2,7 +2,9 @@
 export { useAuth } from './useAuth';
 export { useUsers } from './useUsers';
 export { useApi, useFileUpload } from './useApi';
-export { useSenators, useSenatorDetail } from './useSenators';
+export { useSenators, useSenatorDetail, useSenatorVotes } from './useSenators';
+export { useProjects, useProjectDetail } from './useProjects';
+export { useProjectVotes } from './useVoting';
 
 // Re-exportações para facilitar importação
 export type { 

@@ -109,17 +109,22 @@
 @media (max-width: 768px) {
   .headerContent {
     padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
   }
   
   .nav {
-    width: 100%;
-    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .navLink {
+    font-size: 0.875rem;
   }
   
   .authSection {
     gap: 0.5rem;
+  }
+  
+  .userName {
+    display: none; /* Oculta o nome do usuário em telas pequenas */
   }
   
   .footerContent {
@@ -131,5 +136,33 @@
   
   .footerLinks {
     gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerContent {
+    padding: 0.75rem;
+  }
+  
+  .logoText {
+    font-size: 1.25rem;
+  }
+  
+  .nav {
+    gap: 0.75rem;
+  }
+  
+  .navLink {
+    font-size: 0.8125rem;
+  }
+  
+  .authSection {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .footerLinks {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

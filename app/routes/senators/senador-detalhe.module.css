@@ -205,6 +205,37 @@
   color: #8b5cf6;
 }
 
+.votingSection {
+  padding: 1.5rem;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.votingDescription {
+  color: #d1d5db;
+  margin: 0 0 1rem 0;
+  line-height: 1.6;
+}
+
+.votingLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.votingLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(59, 130, 246, 0.4);
+}
+
 .loadingContainer {
   display: flex;
   flex-direction: column;

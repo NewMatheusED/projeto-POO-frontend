@@ -54,6 +54,14 @@
   margin: 0;
 }
 
+.loadingSubtext {
+  color: #f59e0b;
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+  max-width: 400px;
+}
+
 .errorContainer {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,112 @@
+.card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+.header {
+  margin-bottom: 0.75rem;
+}
+
+.name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.party,
+.uf {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.375rem;
+}
+
+.party {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.uf {
+  background-color: #f3e8ff;
+  color: #7c3aed;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.vote {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.voteSymbol {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.voteDescription {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.voteYes {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.voteNo {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.voteAbstention {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.voteOther {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 0.75rem;
+  }
+  
+  .name {
+    font-size: 0.8125rem;
+  }
+  
+  .tags {
+    gap: 0.375rem;
+  }
+  
+  .party,
+  .uf {
+    font-size: 0.6875rem;
+    padding: 0.125rem 0.375rem;
+  }
+}

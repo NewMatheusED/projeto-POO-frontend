@@ -20,3 +20,13 @@ export const useSenatorDetail = (codigo: string) => {
     gcTime: 10 * 60 * 1000, // 10 minutos
   });
 };
+
+export const useSenatorVotes = (codigo: string) => {
+  return useQuery({
+    queryKey: ['senator-votes', codigo],
+    queryFn: () => SenatorService.getSenatorVotes(codigo),
+    enabled: !!codigo,
+    staleTime: 5 * 60 * 1000, // 5 minutos
+    gcTime: 10 * 60 * 1000, // 10 minutos
+  });
+};
