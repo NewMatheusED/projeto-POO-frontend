@@ -7,7 +7,7 @@ export default [
     route("senators", "routes/senators/senadores.tsx"),
     route("senators/:codigo", "routes/senators/senadores.$codigo.tsx"),
     route("senators/:codigo/votes", "routes/senators/senadores.$codigo.votes.tsx"),
-    route("projects", "routes/projects/projects.tsx"),
+    route("projects", "routes/projects/projects.tsx"), // Back to real implementation
     route("projects/:processoCodigo", "routes/projects/projects.$processoCodigo.tsx"),
   ]),
   
