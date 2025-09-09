@@ -1,0 +1,293 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+}
+
+.loadingText {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  gap: 1rem;
+}
+
+.errorTitle {
+  color: #dc2626;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.errorMessage {
+  color: #6b7280;
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0;
+}
+
+.backButton,
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.backButton:hover,
+.backLink:hover {
+  background-color: #2563eb;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.senatorSection {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.senatorName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #3b82f6;
+  margin: 0 0 1rem 0;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.votesSection {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.noVotes {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+}
+
+.votesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.voteCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.voteCard:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.voteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.voteInfo {
+  flex: 1;
+}
+
+.voteTitle {
+  margin: 0 0 0.5rem 0;
+}
+
+.projectLink {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #3b82f6;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.projectLink:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.voteDescription {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.voteResult {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.voteValue {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.voteValue.voteYes {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.voteValue.voteNo {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.voteValue.voteAbstention {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.voteValue.voteOther {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.voteResultText {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.voteDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detailLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.detailValue {
+  font-size: 0.875rem;
+  color: #1f2937;
+}
+
+.ementaSection {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+.ementaTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.ementaText {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #374151;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .content {
+    gap: 1.5rem;
+  }
+  
+  .senatorSection,
+  .votesSection {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .senatorName {
+    font-size: 1.25rem;
+  }
+  
+  .voteCard {
+    padding: 1rem;
+  }
+  
+  .voteHeader {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .voteResult {
+    align-items: flex-start;
+  }
+  
+  .voteDetails {
+    grid-template-columns: 1fr;
+  }
+}

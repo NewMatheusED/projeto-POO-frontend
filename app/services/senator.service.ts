@@ -1,5 +1,5 @@
 import { apiClient } from '~/lib/api';
-import type { SenatorsResponse, SenatorDetailResponse } from '~/types';
+import type { SenatorsResponse, SenatorDetailResponse, SenatorVotesResponse } from '~/types';
 
 export class SenatorService {
   /**
@@ -20,6 +20,19 @@ export class SenatorService {
     const response = await apiClient.get<SenatorDetailResponse>(
       `/senado/senadores/${codigo}/detalhe`
     );
+    return response.data;
+  }
+
+  /**
+   * Busca votações de um senador específico
+   * @param codigo - Código do senador
+   */
+  static async getSenatorVotes(codigo: string): Promise<SenatorVotesResponse> {
+    console.log('getSenatorVotes', codigo);
+    const response = await apiClient.get<SenatorVotesResponse>(
+      `/senado/senadores/${codigo}/votacoes`
+    );
+    console.log('response', response.data);
     return response.data;
   }
 }

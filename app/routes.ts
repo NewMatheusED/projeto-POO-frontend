@@ -5,6 +5,9 @@ export default [
   layout("layouts/PublicLayout.tsx", [
     route("senators", "routes/senators/senadores.tsx"),
     route("senators/:codigo", "routes/senators/senadores.$codigo.tsx"),
+    route("senators/:codigo/votes", "routes/senators/senadores.$codigo.votes.tsx"),
+    route("projects", "routes/projects/projects.tsx"),
+    route("projects/:processoCodigo", "routes/projects/projects.$processoCodigo.tsx"),
   ]),
   
   // Layout de autenticação
