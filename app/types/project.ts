@@ -18,6 +18,10 @@ export interface Project {
 
 export interface ProjectsResponse {
   data: Project[];
+  total?: number;
+  page?: number;
+  limit?: number;
+  totalPages?: number;
   message: string;
   success: boolean;
   statusCode: number;

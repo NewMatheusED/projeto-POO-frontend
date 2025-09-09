@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { ProjectService } from '~/services';
 
-export const useProjects = () => {
+export const useProjects = (page: number = 1, limit: number = 20) => {
   return useQuery({
-    queryKey: ['projects'],
-    queryFn: ProjectService.getAllProjects,
+    queryKey: ['projects', page, limit],
+    queryFn: () => ProjectService.getAllProjects(page, limit),
     staleTime: 5 * 60 * 1000, // 5 minutos
     gcTime: 10 * 60 * 1000, // 10 minutos
   });

@@ -11,6 +11,9 @@ export default function SenadoresPage() {
         <div className={styles.loadingContainer}>
           <Loading size="lg" />
           <p className={styles.loadingText}>Carregando senadores...</p>
+          <p className={styles.loadingSubtext}>
+            ⚠️ O servidor pode estar hibernando. A primeira requisição pode levar até 5 minutos.
+          </p>
         </div>
       </div>
     );
