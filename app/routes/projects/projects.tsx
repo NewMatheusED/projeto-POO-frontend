@@ -35,13 +35,7 @@ import {
   Select,
   Stack,
 } from '@mui/material';
-import {
-  Visibility as VisibilityIcon,
-  ExpandMore as ExpandMoreIcon,
-  ExpandLess as ExpandLessIcon,
-  Search as SearchIcon,
-  FilterList as FilterListIcon,
-} from '@mui/icons-material';
+import { IconWrapper } from '~/components/ui/icons';
 import type { Project } from '~/types';
 
 export default function ProjectsPage() {
@@ -256,7 +250,7 @@ export default function ProjectsPage() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon />
+                  <IconWrapper name="Search" />
                 </InputAdornment>
               ),
             }}
@@ -265,7 +259,7 @@ export default function ProjectsPage() {
             onClick={() => setShowFilters(!showFilters)}
             color={showFilters ? 'primary' : 'default'}
           >
-            <FilterListIcon />
+            <IconWrapper name="FilterList" />
           </IconButton>
         </Stack>
 
@@ -461,7 +455,7 @@ export default function ProjectsPage() {
                               }
                             }}
                           >
-                            <VisibilityIcon />
+                            <IconWrapper name="Visibility" />
                           </IconButton>
                         </ClickFeedback>
                       </Tooltip>
@@ -541,7 +535,7 @@ export default function ProjectsPage() {
                     to={`/projects/${project.id}`}
                     variant="contained"
                     size="small"
-                    startIcon={<VisibilityIcon />}
+                    startIcon={<IconWrapper name="Visibility" />}
                   >
                     Ver Detalhes
                   </Button>
@@ -559,7 +553,7 @@ export default function ProjectsPage() {
                       }
                     }}
                   >
-                    {expandedRows.has(project.id) ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    {expandedRows.has(project.id) ? <IconWrapper name="ExpandLess" /> : <IconWrapper name="ExpandMore" />}
                   </IconButton>
                 </ClickFeedback>
               </CardActions>

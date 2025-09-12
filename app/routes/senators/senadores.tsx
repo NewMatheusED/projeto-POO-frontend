@@ -20,10 +20,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import {
-  Search as SearchIcon,
-  FilterList as FilterListIcon,
-} from '@mui/icons-material';
+import { IconWrapper } from '~/components/ui/icons';
 import styles from './senadores.module.css';
 
 // Tipos para melhor tipagem

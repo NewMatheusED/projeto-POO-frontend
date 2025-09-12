@@ -1,48 +1,74 @@
 /**
  * Configuração específica para otimização de ícones
  * Evita o erro EMFILE: too many open files
+ * Segue princípios SOLID e calistênicos de objetos
  */
 
 import { defineConfig } from 'vite';
+
+// Lista de ícones permitidos para evitar EMFILE
+const ALLOWED_ICONS = [
+  'ArrowBack',
+  'Visibility',
+  'ExpandMore', 
+  'ExpandLess',
+  'Search',
+  'FilterList',
+  'BathroomSharp',
+  'Battery80',
+  'HelpOutline'
+];
+
+// Função para verificar se um ícone é permitido
+const isAllowedIcon = (id: string): boolean => {
+  return ALLOWED_ICONS.some(icon => id.includes(`@mui/icons-material/${icon}`));
+};
 
 export const iconOptimizationConfig = defineConfig({
   build: {
     rollupOptions: {
       external: (id) => {
-        // Evitar bundling de todos os ícones do Material-UI
-        if (id.includes('@mui/icons-material') && !id.includes('esm')) {
-          return false; // Incluir apenas os ícones necessários
+        // Bloquear ícones não permitidos
+        if (id.includes('@mui/icons-material') && !isAllowedIcon(id)) {
+          return true; // Marcar como externo para evitar bundling
         }
         return false;
       },
       output: {
-        manualChunks: {
-          // Separar ícones em chunk próprio
-          'mui-icons': ['@mui/icons-material'],
+        manualChunks: (id) => {
+          // Separar ícones em chunks específicos
+          if (id.includes('@mui/icons-material')) {
+            return 'mui-icons-optimized';
+          }
+          return null;
         },
       },
     },
   },
   optimizeDeps: {
-    include: [
-      // Incluir apenas os ícones necessários na otimização
-      '@mui/icons-material/ArrowBack',
-      '@mui/icons-material/Visibility',
-      '@mui/icons-material/ExpandMore',
-      '@mui/icons-material/ExpandLess',
-      '@mui/icons-material/Search',
-      '@mui/icons-material/FilterList',
-    ],
+    include: ALLOWED_ICONS.map(icon => `@mui/icons-material/${icon}`),
     exclude: [
-      // Excluir todos os outros ícones para evitar EMFILE
-      '@mui/icons-material',
+      // Excluir o pacote completo para evitar carregamento desnecessário
+      '@mui/icons-material'
     ],
   },
   esbuild: {
-    // Configurações específicas para reduzir arquivos abertos
     logLevel: 'warning',
     minifyIdentifiers: true,
     minifySyntax: true,
     minifyWhitespace: true,
+    // Configurações específicas para reduzir arquivos abertos
+    target: 'es2020',
+    format: 'esm',
+  },
+  // Configurações adicionais para resolver EMFILE
+  server: {
+    fs: {
+      strict: false, // Permitir acesso a arquivos fora do root
+    },
+  },
+  define: {
+    // Definir variáveis para otimização
+    __ICON_OPTIMIZATION__: JSON.stringify(true),
   },
 });

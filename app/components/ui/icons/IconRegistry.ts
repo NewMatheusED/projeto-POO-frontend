@@ -23,6 +23,9 @@ export const IconRegistry = {
   ExpandLess: lazy(() => import('@mui/icons-material/ExpandLess').then(m => ({ default: m.default }))),
   Search: lazy(() => import('@mui/icons-material/Search').then(m => ({ default: m.default }))),
   FilterList: lazy(() => import('@mui/icons-material/FilterList').then(m => ({ default: m.default }))),
+  BathroomSharp: lazy(() => import('@mui/icons-material/BathroomSharp').then(m => ({ default: m.default }))),
+  Battery80: lazy(() => import('@mui/icons-material/Battery80').then(m => ({ default: m.default }))),
+  HelpOutline: lazy(() => import('@mui/icons-material/HelpOutline').then(m => ({ default: m.default }))),
 } as const;
 
 // Tipo para chaves do registry

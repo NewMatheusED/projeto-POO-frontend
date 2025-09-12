@@ -5,6 +5,7 @@ export { useApi, useFileUpload } from './useApi';
 export { useSenators, useSenatorDetail, useSenatorVotes } from './useSenators';
 export { useProjects, useProjectDetail } from './useProjects';
 export { useProjectVotes } from './useVoting';
+export { useIconOptimization } from './useIconOptimization';
 
 // Re-exportações para facilitar importação
 export type { 

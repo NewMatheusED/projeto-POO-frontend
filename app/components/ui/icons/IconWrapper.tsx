@@ -5,9 +5,10 @@
  * Substituição de Liskov: Mantém compatibilidade com SvgIconProps
  */
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { type SvgIconProps, CircularProgress, Box } from '@mui/material';
 import { IconRegistry, type IconName } from './IconRegistry';
+import { iconOptimizer } from '~/lib/icon-optimization';
 
 interface IconWrapperProps extends SvgIconProps {
   name: IconName;
@@ -24,6 +25,12 @@ export const IconWrapper: React.FC<IconWrapperProps> = ({
   ...props 
 }) => {
   const IconComponent = IconRegistry[name];
+
+  // Otimizar carregamento do ícone
+  useEffect(() => {
+    iconOptimizer.queueIconLoad(name);
+    iconOptimizer.processQueue();
+  }, [name]);
 
   return (
     <Suspense 
