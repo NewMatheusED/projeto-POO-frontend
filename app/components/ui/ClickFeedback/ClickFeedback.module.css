@@ -1,0 +1,94 @@
+/* Container base */
+.container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.container.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Scale feedback */
+.container.scale {
+  transition: transform var(--duration, 300ms) ease;
+}
+
+.container.scale:active:not(.disabled) {
+  transform: scale(0.95);
+}
+
+/* Glow feedback */
+.container.glow {
+  transition: box-shadow var(--duration, 300ms) ease;
+}
+
+.container.glow:active:not(.disabled) {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Ripple feedback */
+.container.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.rippleEffect {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: ripple var(--duration, 300ms) ease-out;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Hover effects */
+.container:not(.disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.container.scale:not(.disabled):hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Focus styles for accessibility */
+.container:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Active state */
+.container.active:not(.disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container.scale.active:not(.disabled) {
+  transform: scale(0.95);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .rippleEffect {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .container:not(.disabled):hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  }
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Button, Input, Loading } from "~/components/ui";
+import { Button, Input, Loading, ClickFeedback, LoadingButton } from "~/components/ui";
 import { useAuthContext } from "~/providers/AuthProvider";
 import { isValidEmail } from "~/utils/validation";
 import styles from "./login.module.css";
@@ -126,28 +126,35 @@ export default function Login() {
           </div>
 
           <div className={styles.actions}>
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              fullWidth
-              isLoading={isLoggingIn}
-              disabled={isLoggingIn}
-            >
-              {isLoggingIn ? "Entrando..." : "Entrar"}
-            </Button>
+            <ClickFeedback feedbackType="scale">
+              <LoadingButton
+                type="submit"
+                variant="primary"
+                size="lg"
+                fullWidth
+                isLoading={isLoggingIn}
+                loadingText="Entrando..."
+                disabled={isLoggingIn}
+              >
+                Entrar
+              </LoadingButton>
+            </ClickFeedback>
           </div>
 
           <div className={styles.footer}>
             <p className={styles.footerText}>
               Não tem uma conta?{" "}
-                        <Link to="/auth/register" className={styles.link}>
-            Criar conta
-          </Link>
+              <ClickFeedback feedbackType="ripple">
+                <Link to="/auth/register" className={styles.link}>
+                  Criar conta
+                </Link>
+              </ClickFeedback>
             </p>
-            <Link to="/forgot-password" className={styles.link}>
-              Esqueceu sua senha?
-            </Link>
+            <ClickFeedback feedbackType="ripple">
+              <Link to="/forgot-password" className={styles.link}>
+                Esqueceu sua senha?
+              </Link>
+            </ClickFeedback>
           </div>
         </form>
       </div>

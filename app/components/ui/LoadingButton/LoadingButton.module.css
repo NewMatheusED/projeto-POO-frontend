@@ -1,0 +1,106 @@
+/* Button container */
+.button {
+  position: relative;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.button.fullWidth {
+  width: 100%;
+}
+
+.button.clicking {
+  transform: scale(0.98);
+}
+
+/* Button content */
+.buttonContent {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+/* Loading container */
+.loadingContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Icons */
+.leftIcon,
+.rightIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.leftIcon {
+  margin-right: 0.5rem;
+}
+
+.rightIcon {
+  margin-left: 0.5rem;
+}
+
+/* Content */
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+/* Loading state - hide content */
+.buttonContent:has(.loadingContainer) .content {
+  opacity: 0;
+}
+
+.buttonContent:has(.loadingContainer) .leftIcon,
+.buttonContent:has(.loadingContainer) .rightIcon {
+  opacity: 0;
+}
+
+/* Hover effects */
+.button:not(:disabled):hover .buttonContent {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Active state */
+.button:not(:disabled):active .buttonContent {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Disabled state */
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button:disabled .buttonContent {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Focus styles for accessibility */
+.button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .button:not(:disabled):hover .buttonContent {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  }
+}

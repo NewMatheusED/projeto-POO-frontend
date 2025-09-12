@@ -87,6 +87,181 @@
   line-height: 1.6;
 }
 
+/* Filtros */
+.filtersContainer {
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.searchContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f9fafb;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.filterButton {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.filtersRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filterSelect {
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f9fafb;
+  font-size: 0.9rem;
+  min-width: 150px;
+  transition: all 0.2s ease;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Paginação */
+.paginationContainer {
+  max-width: 1200px;
+  margin: 2rem auto 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.paginationInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.paginationButton {
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.paginationButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageNumber {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 600;
+  min-width: 3rem;
+  text-align: center;
+}
+
+.rowsPerPageSelect {
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f9fafb;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.rowsPerPageSelect:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #9ca3af;
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  color: #f9fafb;
+}
+
+.emptyState p {
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .container {
@@ -105,6 +280,37 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
   }
+
+  .filtersContainer {
+    padding: 1rem;
+  }
+
+  .searchContainer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
+
+  .filtersRow {
+    flex-direction: column;
+  }
+
+  .filterSelect {
+    width: 100%;
+  }
+
+  .paginationContainer {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .paginationControls {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 640px) {
@@ -115,5 +321,15 @@
   .grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  .paginationButton {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .pageNumber {
+    padding: 0.4rem 0.8rem;
+    min-width: 2.5rem;
   }
 }

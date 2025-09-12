@@ -1,0 +1,45 @@
+/* Table row base styles */
+.tableRow {
+  transition: all 0.2s ease;
+}
+
+/* Clickable row styles */
+.tableRow.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.tableRow.clickable:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hovered state */
+.tableRow.hovered {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Active state */
+.tableRow.clickable:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus styles for accessibility */
+.tableRow.clickable:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .tableRow.clickable:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  }
+  
+  .tableRow.hovered {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+}

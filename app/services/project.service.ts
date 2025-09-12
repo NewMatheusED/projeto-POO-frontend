@@ -5,11 +5,9 @@ export class ProjectService {
   /**
    * Busca todos os processos/projetos com paginação
    */
-  static async getAllProjects(page: number = 1, limit: number = 20): Promise<ProjectsResponse> {
-    console.log('getAllProjects', { page, limit });
-    const response = await apiClient.get<ProjectsResponse>('/processo/geral', {
-      params: { page, limit }
-    });
+  static async getAllProjects(): Promise<ProjectsResponse> {
+    console.log('getAllProjects');
+    const response = await apiClient.get<ProjectsResponse>('/processo/geral');
     console.log('response', response.data);
     return response.data;
   }

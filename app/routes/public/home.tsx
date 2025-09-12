@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Button } from "~/components/ui";
+import { Button, ClickFeedback } from "~/components/ui";
 import { useAuthContext } from "~/providers/AuthProvider";
 
 export default function Home() {
@@ -19,9 +19,14 @@ export default function Home() {
                       Olá, <span className="font-semibold text-blue-600">{user?.name}</span>!
                     </p>
                     <div className="flex gap-4 justify-center">
-                                        <Link to="/senators">
+                  <Link to="/senators">
                     <Button variant="primary" size="lg">
                       Ver Senadores
+                    </Button>
+                  </Link>
+                  <Link to="/projects">
+                    <Button variant="primary" size="lg">
+                      Ver Projetos
                     </Button>
                   </Link>
                   <Link to="/dashboard">
@@ -37,21 +42,27 @@ export default function Home() {
                 </>
               ) : (
                 <>
-                  <Link to="/senators">
-                    <Button variant="primary" size="lg">
-                      Ver Senadores
-                    </Button>
-                  </Link>
-                  <Link to="/auth/login">
-                    <Button variant="outline" size="lg">
-                      Fazer Login
-                    </Button>
-                  </Link>
-                  <Link to="/auth/register">
-                    <Button variant="outline" size="lg">
-                      Criar Conta
-                    </Button>
-                  </Link>
+                  <ClickFeedback feedbackType="scale">
+                    <Link to="/senators">
+                      <Button variant="primary" size="lg">
+                        Ver Senadores
+                      </Button>
+                    </Link>
+                  </ClickFeedback>
+                  <ClickFeedback feedbackType="scale">
+                    <Link to="/auth/login">
+                      <Button variant="outline" size="lg">
+                        Fazer Login
+                      </Button>
+                    </Link>
+                  </ClickFeedback>
+                  <ClickFeedback feedbackType="scale">
+                    <Link to="/auth/register">
+                      <Button variant="outline" size="lg">
+                        Criar Conta
+                      </Button>
+                    </Link>
+                  </ClickFeedback>
                 </>
               )}
             </div>
