@@ -210,7 +210,7 @@ export default function ProjectsPage() {
         }}
       >
         <CircularProgress size={60} />
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant="h6" color="secondary">
           Carregando projetos...
         </Typography>
         <Alert severity="warning" sx={{ maxWidth: 600 }}>

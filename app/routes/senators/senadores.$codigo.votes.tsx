@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router';
 import { useSenatorDetail, useSenatorVotes } from '~/hooks';
 import { ClickFeedback } from '~/components/ui';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, memo } from 'react';
 import {
   Box,
   Typography,
@@ -36,15 +36,206 @@ import {
   Stack,
   Divider,
 } from '@mui/material';
-import {
-  Visibility as VisibilityIcon,
-  ExpandMore as ExpandMoreIcon,
-  ExpandLess as ExpandLessIcon,
-  Search as SearchIcon,
-  FilterList as FilterListIcon,
-  ArrowBack as ArrowBackIcon,
-} from '@mui/icons-material';
+import { IconWrapper } from '~/components/ui/icons';
 import styles from './senador-votacoes.module.css';
+
+// Componente memoizado para linha da tabela desktop
+const VoteTableRow = memo<{
+  vote: VoteData;
+  index: number;
+  getVoteColor: (voteSignature: string) => string;
+  getVoteTooltip: (voteSignature: string) => string;
+  formatDate: (dateString: string) => string;
+}>(({ vote, index, getVoteColor, getVoteTooltip, formatDate }) => (
+  <TableRow
+    key={`${vote.CodigoSessaoVotacao}-${index}`}
+    hover
+    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+  >
+    <TableCell>
+      <Typography
+        variant="body2"
+        sx={{
+          fontWeight: 500,
+          maxWidth: 300,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {vote.Materia.DescricaoIdentificacao}
+      </Typography>
+    </TableCell>
+    <TableCell>
+      <Typography
+        variant="body2"
+        sx={{
+          maxWidth: 300,
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+        }}
+      >
+        {vote.DescricaoVotacao}
+      </Typography>
+    </TableCell>
+    <TableCell>
+      <Tooltip title={getVoteTooltip(vote.SiglaDescricaoVoto)} arrow>
+        <Chip
+          label={vote.SiglaDescricaoVoto}
+          color={getVoteColor(vote.SiglaDescricaoVoto) as any}
+          size="small"
+          sx={{ cursor: 'help' }}
+        />
+      </Tooltip>
+    </TableCell>
+    <TableCell>
+      <Typography variant="body2">
+        {formatDate(vote.SessaoPlenaria.DataSessao)}
+      </Typography>
+    </TableCell>
+    <TableCell>
+      <Typography variant="body2">
+        {vote.SessaoPlenaria.SiglaTipoSessao} {vote.SessaoPlenaria.NumeroSessao}
+      </Typography>
+    </TableCell>
+    <TableCell>
+      <Typography variant="body2">
+        Sim: {vote.TotalVotosSim}, Não: {vote.TotalVotosNao}, Abstenção: {vote.TotalVotosAbstencao}
+      </Typography>
+    </TableCell>
+    <TableCell align="center">
+      <Tooltip title="Ver projeto">
+        <ClickFeedback feedbackType="ripple">
+          <IconButton
+            component={Link}
+            to={`/projects/${vote.Materia.IdentificacaoProcesso}`}
+            size="small"
+            sx={{
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                transform: 'scale(1.1)',
+                backgroundColor: 'primary.main',
+                color: 'white',
+              }
+            }}
+          >
+            <IconWrapper name="Visibility" />
+          </IconButton>
+        </ClickFeedback>
+      </Tooltip>
+    </TableCell>
+  </TableRow>
+));
+
+// Componente memoizado para card mobile
+const VoteCard = memo<{
+  vote: VoteData;
+  index: number;
+  isExpanded: boolean;
+  onToggleExpansion: (voteId: string) => void;
+  getVoteColor: (voteSignature: string) => string;
+  getVoteTooltip: (voteSignature: string) => string;
+  formatDate: (dateString: string) => string;
+}>(({ vote, index, isExpanded, onToggleExpansion, getVoteColor, getVoteTooltip, formatDate }) => {
+  const voteId = `${vote.CodigoSessaoVotacao}-${index}`;
+  
+  return (
+    <Card sx={{ mb: 2 }}>
+      <CardContent>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+          <Typography variant="h6" component="h3" sx={{ fontWeight: 600, flex: 1, mr: 1 }}>
+            {vote.Materia.DescricaoIdentificacao}
+          </Typography>
+          <Tooltip title={getVoteTooltip(vote.SiglaDescricaoVoto)} arrow>
+            <Chip
+              label={vote.SiglaDescricaoVoto}
+              color={getVoteColor(vote.SiglaDescricaoVoto) as any}
+              size="small"
+              sx={{ cursor: 'help' }}
+            />
+          </Tooltip>
+        </Box>
+        
+        <Typography
+          variant="body2"
+          color="secondary"
+          sx={{
+            mb: 2,
+            display: '-webkit-box',
+            WebkitLineClamp: isExpanded ? 0 : 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          }}
+        >
+          {vote.DescricaoVotacao}
+        </Typography>
+
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 1 }}>
+          <Typography variant="caption" color="secondary">
+            <strong>Data:</strong> {formatDate(vote.SessaoPlenaria.DataSessao)}
+          </Typography>
+          <Typography variant="caption" color="secondary">
+            <strong>Sessão:</strong> {vote.SessaoPlenaria.SiglaTipoSessao} {vote.SessaoPlenaria.NumeroSessao}
+          </Typography>
+        </Box>
+
+        {isExpanded && (
+          <Box sx={{ mt: 2 }}>
+            <Divider sx={{ mb: 2 }} />
+            <Typography variant="subtitle2" gutterBottom>
+              Resultado da Votação:
+            </Typography>
+            <Typography variant="body2" color="secondary" sx={{ mb: 2 }}>
+              Sim: {vote.TotalVotosSim}, Não: {vote.TotalVotosNao}, Abstenção: {vote.TotalVotosAbstencao}
+            </Typography>
+            
+            <Typography variant="subtitle2" gutterBottom>
+              Ementa:
+            </Typography>
+            <Typography variant="body2" color="secondary">
+              {vote.Materia.Ementa.length > 200 
+                ? `${vote.Materia.Ementa.substring(0, 200)}...`
+              : vote.Materia.Ementa
+              }
+            </Typography>
+          </Box>
+        )}
+      </CardContent>
+      
+      <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
+        <ClickFeedback feedbackType="scale">
+          <Button
+            component={Link}
+            to={`/projects/${vote.Materia.IdentificacaoProcesso}`}
+            variant="contained"
+            size="small"
+            startIcon={<IconWrapper name="Visibility" />}
+          >
+            Ver Projeto
+          </Button>
+        </ClickFeedback>
+        <ClickFeedback feedbackType="ripple">
+          <IconButton
+            onClick={() => onToggleExpansion(voteId)}
+            size="small"
+            sx={{
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                transform: 'scale(1.1)',
+                backgroundColor: 'primary.main',
+                color: 'white',
+              }
+            }}
+          >
+            {isExpanded ? <IconWrapper name="ExpandLess" /> : <IconWrapper name="ExpandMore" />}
+          </IconButton>
+        </ClickFeedback>
+      </CardActions>
+    </Card>
+  );
+});
 
 // Tipos para melhor tipagem
 interface VoteData {
@@ -315,7 +506,7 @@ export default function SenadorVotacoesPage() {
           component={Link}
           to={`/senators/${codigo}`}
           variant="contained"
-          startIcon={<ArrowBackIcon />}
+          startIcon={<IconWrapper name="ArrowBack" />}
         >
             Voltar para detalhes do senador
         </Button>
@@ -331,7 +522,7 @@ export default function SenadorVotacoesPage() {
           <Button
             component={Link}
             to={`/senators/${codigo}`}
-            startIcon={<ArrowBackIcon />}
+            startIcon={<IconWrapper name="ArrowBack" />}
             sx={{ mb: 2 }}
           >
             Voltar para detalhes do senador
@@ -364,9 +555,9 @@ export default function SenadorVotacoesPage() {
             sx={{ flexGrow: 1, maxWidth: 400 }}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
+            <InputAdornment position="start">
+              <IconWrapper name="Search" />
+            </InputAdornment>
               ),
             }}
           />
@@ -374,7 +565,7 @@ export default function SenadorVotacoesPage() {
             onClick={() => setShowFilters(!showFilters)}
             color={showFilters ? 'primary' : 'default'}
           >
-            <FilterListIcon />
+            <IconWrapper name="FilterList" />
           </IconButton>
         </Stack>
 
@@ -471,86 +662,14 @@ export default function SenadorVotacoesPage() {
               </TableHead>
               <TableBody>
                 {paginatedVotes.map((vote, index) => (
-                  <TableRow
+                  <VoteTableRow
                     key={`${vote.CodigoSessaoVotacao}-${index}`}
-                    hover
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          fontWeight: 500,
-                          maxWidth: 300,
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                        }}
-                        >
-                          {vote.Materia.DescricaoIdentificacao}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          maxWidth: 300,
-                          display: '-webkit-box',
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: 'vertical',
-                          overflow: 'hidden',
-                        }}
-                      >
-                        {vote.DescricaoVotacao}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Tooltip title={getVoteTooltip(vote.SiglaDescricaoVoto)} arrow>
-                        <Chip
-                          label={vote.SiglaDescricaoVoto}
-                          color={getVoteColor(vote.SiglaDescricaoVoto) as any}
-                          size="small"
-                          sx={{ cursor: 'help' }}
-                        />
-                      </Tooltip>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">
-                        {formatDate(vote.SessaoPlenaria.DataSessao)}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">
-                        {vote.SessaoPlenaria.SiglaTipoSessao} {vote.SessaoPlenaria.NumeroSessao}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">
-                        Sim: {vote.TotalVotosSim}, Não: {vote.TotalVotosNao}, Abstenção: {vote.TotalVotosAbstencao}
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Tooltip title="Ver projeto">
-                        <ClickFeedback feedbackType="ripple">
-                          <IconButton
-                            component={Link}
-                            to={`/projects/${vote.Materia.IdentificacaoProcesso}`}
-                            size="small"
-                            sx={{
-                              transition: 'all 0.2s ease',
-                              '&:hover': {
-                                transform: 'scale(1.1)',
-                                backgroundColor: 'primary.main',
-                                color: 'white',
-                              }
-                            }}
-                          >
-                            <VisibilityIcon />
-                          </IconButton>
-                        </ClickFeedback>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
+                    vote={vote}
+                    index={index}
+                    getVoteColor={getVoteColor}
+                    getVoteTooltip={getVoteTooltip}
+                    formatDate={formatDate}
+                  />
                 ))}
               </TableBody>
             </Table>
@@ -580,98 +699,16 @@ export default function SenadorVotacoesPage() {
             const isExpanded = expandedRows.has(voteId);
             
             return (
-              <Card key={voteId} sx={{ mb: 2 }}>
-                <CardContent>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                    <Typography variant="h6" component="h3" sx={{ fontWeight: 600, flex: 1, mr: 1 }}>
-                          {vote.Materia.DescricaoIdentificacao}
-                    </Typography>
-                    <Tooltip title={getVoteTooltip(vote.SiglaDescricaoVoto)} arrow>
-                      <Chip
-                        label={vote.SiglaDescricaoVoto}
-                        color={getVoteColor(vote.SiglaDescricaoVoto) as any}
-                        size="small"
-                        sx={{ cursor: 'help' }}
-                      />
-                    </Tooltip>
-                  </Box>
-                  
-                  <Typography
-                    variant="body2"
-                    color="secondary"
-                    sx={{
-                      mb: 2,
-                      display: '-webkit-box',
-                      WebkitLineClamp: isExpanded ? 0 : 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    {vote.DescricaoVotacao}
-                  </Typography>
-
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 1 }}>
-                    <Typography variant="caption" color="secondary">
-                      <strong>Data:</strong> {formatDate(vote.SessaoPlenaria.DataSessao)}
-                    </Typography>
-                    <Typography variant="caption" color="secondary">
-                      <strong>Sessão:</strong> {vote.SessaoPlenaria.SiglaTipoSessao} {vote.SessaoPlenaria.NumeroSessao}
-                    </Typography>
-                  </Box>
-
-                  {isExpanded && (
-                    <Box sx={{ mt: 2 }}>
-                      <Divider sx={{ mb: 2 }} />
-                      <Typography variant="subtitle2" gutterBottom>
-                        Resultado da Votação:
-                      </Typography>
-                      <Typography variant="body2" color="secondary" sx={{ mb: 2 }}>
-                        Sim: {vote.TotalVotosSim}, Não: {vote.TotalVotosNao}, Abstenção: {vote.TotalVotosAbstencao}
-                      </Typography>
-                      
-                      <Typography variant="subtitle2" gutterBottom>
-                        Ementa:
-                      </Typography>
-                      <Typography variant="body2" color="secondary">
-                        {vote.Materia.Ementa.length > 200 
-                          ? `${vote.Materia.Ementa.substring(0, 200)}...`
-                        : vote.Materia.Ementa
-                      }
-                      </Typography>
-                    </Box>
-                  )}
-                </CardContent>
-                
-                <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
-                  <ClickFeedback feedbackType="scale">
-                    <Button
-                      component={Link}
-                      to={`/projects/${vote.Materia.IdentificacaoProcesso}`}
-                      variant="contained"
-                      size="small"
-                      startIcon={<VisibilityIcon />}
-                    >
-                      Ver Projeto
-                    </Button>
-                  </ClickFeedback>
-                  <ClickFeedback feedbackType="ripple">
-                    <IconButton
-                      onClick={() => toggleRowExpansion(voteId)}
-                      size="small"
-                      sx={{
-                        transition: 'all 0.2s ease',
-                        '&:hover': {
-                          transform: 'scale(1.1)',
-                          backgroundColor: 'primary.main',
-                          color: 'white',
-                        }
-                      }}
-                    >
-                      {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                    </IconButton>
-                  </ClickFeedback>
-                </CardActions>
-              </Card>
+              <VoteCard
+                key={voteId}
+                vote={vote}
+                index={index}
+                isExpanded={isExpanded}
+                onToggleExpansion={toggleRowExpansion}
+                getVoteColor={getVoteColor}
+                getVoteTooltip={getVoteTooltip}
+                formatDate={formatDate}
+              />
             );
           })}
           
