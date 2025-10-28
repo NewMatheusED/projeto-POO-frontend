@@ -5,15 +5,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
-  css: {
-    modules: {
-      localsConvention: 'camelCase',
-      generateScopedName: '[name]__[local]___[hash:base64:5]'
-    }
+  define: {
+    // Expõe a variável API_URL para o cliente
+    "import.meta.env.API_URL": JSON.stringify(process.env.API_URL),
   },
-  resolve: {
-    alias: {
-      '~': '/app'
-    }
-  }
 });

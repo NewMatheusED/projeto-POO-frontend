@@ -1,29 +1,34 @@
-import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { Toaster } from "react-hot-toast";
+import { Provider, useDispatch } from "react-redux";
+import { useLoaderData } from "react-router";
 import type { Route } from "./+types/root";
-import { QueryProvider } from "~/providers/QueryProvider";
-import { AuthProvider } from "~/providers/AuthProvider";
 import "./app.css";
-
+import { login as loginAction } from "./features/auth/redux";
+import { userCrypto } from "./features/auth/utils";
+import store from "./store";
+import "./zod";
+export const queryClient = new QueryClient();
 export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.cdnfonts.com/css/satoshi",
   },
 ];
+
+// export async function loader({ request }: Route.LoaderArgs) {
+//   const session = await getSession(request.headers.get("Cookie"));
+//   const userInfo = session.get("userInfo") ?? null;
+//   return { userInfo };
+// }
+
+export async function clientLoader() {
+  return { userInfo: await userCrypto.recuperarDadosUsuario() };
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -38,46 +43,65 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <Toaster toastOptions={{ style: { maxWidth: "500px", width: "auto" } }}>
+          {/* {(t) => (
+            <ToastBar toast={t}>
+              {({ icon, message }) => (
+                <>
+                  {icon}
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div>{message}</div>
+                    {t.data?.additionalMessage && (
+                      <div
+                        style={{
+                          fontSize: "0.85em",
+                          opacity: 0.8,
+                          marginTop: "4px",
+                        }}
+                      >
+                        {t.data.additionalMessage}
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </ToastBar>
+          )} */}
+        </Toaster>
       </body>
     </html>
   );
 }
 
-export default function App() {
-  return (
-    <QueryProvider>
-      <AuthProvider>
-        <Outlet />
-      </AuthProvider>
-    </QueryProvider>
-  );
+function BootstrapAuth() {
+  const { userInfo } = useLoaderData<typeof clientLoader>() ?? {};
+  // console.log("userInfo do bootstrap", userInfo);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(loginAction(userInfo));
+    }
+  }, [dispatch, userInfo]);
+  return null;
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
-
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
-
+export default function App() {
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <Provider store={store}>
+      <BootstrapAuth />
+      <ErrorBoundary
+        fallback={<div>Error</div>}
+        onError={(error) => {
+          console.log("error capturado", error);
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
+          <Outlet />
+        </QueryClientProvider>
+      </ErrorBoundary>
+      {/* <PersistWrapper>
+        <Outlet />
+      </PersistWrapper> */}
+    </Provider>
   );
 }

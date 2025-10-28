@@ -1,15 +1,99 @@
+@import url("https://fonts.cdnfonts.com/css/satoshi");
 @import "tailwindcss";
-
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: "Satoshi", "comic-sans";
+  --default-font-family: "Satoshi";
+  
+  /* 🎨 Nova Paleta de Cores - Tema Cyberpunk/Neon para Análise de IA */
+  
+  /* Azuis Neons - Cores Principais */
+  --color-ai-neon-blue: #00d9ff;
+  --color-ai-neon-blue-bright: #00f0ff;
+  --color-ai-neon-blue-dark: #0099cc;
+  --color-ai-neon-blue-darker: #006699;
+  
+  /* Azuis Escuros - Background */
+  --color-ai-dark-blue: #0a0e27;
+  --color-ai-dark-blue-secondary: #0f1629;
+  --color-ai-dark-blue-tertiary: #151b2e;
+  --color-ai-dark-blue-card: #1a1f35;
+  
+  /* Azuis Médios - Elementos */
+  --color-ai-blue-primary: #1e3a5f;
+  --color-ai-blue-secondary: #2d4a6e;
+  --color-ai-blue-hover: #3d5a7d;
+  
+  /* Cores de Destaque */
+  --color-ai-accent-purple: #8b5cf6;
+  --color-ai-accent-cyan: #06b6d4;
+  --color-ai-accent-green: #10b981;
+  --color-ai-accent-yellow: #fbbf24;
+  --color-ai-accent-red: #ef4444;
+  
+  /* Cinzas */
+  --color-ai-gray-light: #e5e7eb;
+  --color-ai-gray: #9ca3af;
+  --color-ai-gray-dark: #6b7280;
+  --color-ai-gray-darker: #4b5563;
+  
+  /* Branco e Preto */
+  --color-ai-white: #ffffff;
+  --color-ai-black: #000000;
+  
+  /* Gradientes */
+  --gradient-ai-primary: linear-gradient(135deg, #00d9ff 0%, #8b5cf6 100%);
+  --gradient-ai-dark: linear-gradient(135deg, #0a0e27 0%, #1a1f35 100%);
+  --gradient-ai-card: linear-gradient(135deg, #1a1f35 0%, #2d4a6e 100%);
 }
-
+/* 🎨 Tema Escuro - Background Principal */
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-ai-dark-blue text-ai-white;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 217, 255, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+* {
+  @apply transition-all duration-300;
+}
+
+h1 {
+  @apply text-4xl font-bold lg:text-4xl  xl:text-5xl 2xl:text-6xl;
+}
+h2 {
+  @apply text-2xl lg:text-2xl font-bold xl:text-3xl 2xl:text-4xl;
+}
+
+h3 {
+  @apply text-lg lg:text-sm xl:text-xl 2xl:text-2xl;
+}
+
+p,
+label,
+a {
+  @apply text-[14px] lg:text-[12px] 2xl:text-[14px];
+}
+
+button {
+  cursor: pointer;
+}
+
+.transition-height {
+  transition: height 250ms ease;
+}
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+.fieldsContainer {
+  @apply grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-4;
+}
+/* body {
+  @apply h-dvh;
+} */
+body,
+html {
+  height: 100%;
 }
