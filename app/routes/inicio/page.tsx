@@ -4,6 +4,12 @@ import { dashboardService, type DashboardData } from "~/features/dashboard/servi
 import MediaPorPartidoChart from "~/features/dashboard/components/MediaPorPartidoChart/MediaPorPartidoChart";
 import MediaPorEstadoChart from "~/features/dashboard/components/MediaPorEstadoChart/MediaPorEstadoChart";
 import HeatmapChart from "~/features/dashboard/components/HeatmapChart/HeatmapChart";
+import IdadeDistributionChart from "~/features/dashboard/components/IdadeDistributionChart/IdadeDistributionChart";
+import GeneroDistributionChart from "~/features/dashboard/components/GeneroDistributionChart/GeneroDistributionChart";
+import RadarChart from "~/features/dashboard/components/RadarChart/RadarChart";
+import TopSenadoresChart from "~/features/dashboard/components/TopSenadoresChart/TopSenadoresChart";
+import QualidadePecsChart from "~/features/dashboard/components/QualidadePecsChart/QualidadePecsChart";
+import EstadosMap from "~/features/dashboard/components/EstadosMap/EstadosMap";
 import Logo from "~/src/components/Logo";
 
 export default function DashboardPage() {
@@ -168,22 +174,72 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Gráficos */}
-        <div className="space-y-8">
-          {/* Média por Partido */}
-          <div>
-            <MediaPorPartidoChart data={dashboardData.mediaPorPartido} />
-          </div>
+        {/* Seções Organizadas */}
+        <div className="space-y-12">
+          
+          {/* SEÇÃO 1: ANÁLISE POR PARTIDOS E ESTADOS */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-ai-white mb-2">📊 Análise por Partidos e Estados</h2>
+              <p className="text-ai-gray">Distribuição de impacto político e representação territorial</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <MediaPorPartidoChart data={dashboardData.mediaPorPartido} />
+              <MediaPorEstadoChart data={dashboardData.mediaPorEstado} />
+            </div>
+          </section>
 
-          {/* Média por Estado */}
-          <div>
-            <MediaPorEstadoChart data={dashboardData.mediaPorEstado} />
-          </div>
+          {/* SEÇÃO 2: MAPA DOS ESTADOS */}
+          {/* <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-ai-white mb-2">🗺️ Mapa dos Estados</h2>
+              <p className="text-ai-gray">Visualização geográfica da distribuição e impacto dos senadores</p>
+            </div>
+            <EstadosMap data={dashboardData.senadores} />
+          </section> */}
 
-          {/* Mapa de Calor */}
-          <div>
+          {/* SEÇÃO 3: PERFIL DEMOGRÁFICO */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-ai-white mb-2">👥 Perfil Demográfico</h2>
+              <p className="text-ai-gray">Análise da composição etária e de gênero do Senado</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <IdadeDistributionChart data={dashboardData.senadores} />
+              <GeneroDistributionChart data={dashboardData.senadores} />
+            </div>
+          </section>
+
+          {/* SEÇÃO 4: ANÁLISE DE IMPACTOS */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-ai-white mb-2">🎯 Análise de Impactos</h2>
+              <p className="text-ai-gray">Radar dos tipos de impacto e qualidade dos projetos legislativos</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <RadarChart data={dashboardData.senadores} />
+              <QualidadePecsChart data={dashboardData.pecs} />
+            </div>
+          </section>
+
+          {/* SEÇÃO 5: RANKINGS */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-ai-white mb-2">🏆 Rankings</h2>
+              <p className="text-ai-gray">Top senadores com maior impacto político</p>
+            </div>
+            <TopSenadoresChart data={dashboardData.senadores} topN={10} />
+          </section>
+
+          {/* SEÇÃO 6: MAPA DE CALOR DETALHADO */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-ai-white mb-2">🔥 Mapa de Calor Detalhado</h2>
+              <p className="text-ai-gray">Análise comparativa dos impactos por partido e categoria</p>
+            </div>
             <HeatmapChart data={dashboardData.impactoPorPartido} />
-          </div>
+          </section>
+
         </div>
 
         {/* Footer */}

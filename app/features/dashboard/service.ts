@@ -77,6 +77,8 @@ export interface DashboardData {
   mediaPorPartido: MediaPorPartido[];
   mediaPorEstado: MediaPorEstado[];
   impactoPorPartido: ImpactoPorPartido[];
+  senadores: SenadorData[];
+  pecs: PecData[];
   totalSenadores: number;
   totalPecs: number;
 }
@@ -210,6 +212,8 @@ class DashboardService {
       mediaPorPartido,
       mediaPorEstado,
       impactoPorPartido,
+      senadores,
+      pecs,
       totalSenadores: senadores.length,
       totalPecs: pecs.length
     };
