@@ -9,7 +9,6 @@ import GeneroDistributionChart from "~/features/dashboard/components/GeneroDistr
 import RadarChart from "~/features/dashboard/components/RadarChart/RadarChart";
 import TopSenadoresChart from "~/features/dashboard/components/TopSenadoresChart/TopSenadoresChart";
 import QualidadePecsChart from "~/features/dashboard/components/QualidadePecsChart/QualidadePecsChart";
-import EstadosMap from "~/features/dashboard/components/EstadosMap/EstadosMap";
 import Logo from "~/src/components/Logo";
 
 export default function DashboardPage() {
