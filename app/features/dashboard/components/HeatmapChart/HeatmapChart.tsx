@@ -20,7 +20,6 @@ const IMPACTOS: ImpactoType[] = [
   { key: 'impacto_regional', label: 'Impacto Regional', shortLabel: 'Regional' },
   { key: 'impacto_social', label: 'Impacto Social', shortLabel: 'Social' },
   { key: 'impacto_tecnologico', label: 'Impacto Tecnológico', shortLabel: 'Tecnológico' },
-  { key: 'impacto_temporal', label: 'Impacto Temporal', shortLabel: 'Temporal' },
 ];
 
 export default function HeatmapChart({ data }: HeatmapChartProps) {

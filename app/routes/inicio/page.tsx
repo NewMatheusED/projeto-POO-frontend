@@ -10,6 +10,7 @@ import RadarChart from "~/features/dashboard/components/RadarChart/RadarChart";
 import TopSenadoresChart from "~/features/dashboard/components/TopSenadoresChart/TopSenadoresChart";
 import QualidadePecsChart from "~/features/dashboard/components/QualidadePecsChart/QualidadePecsChart";
 import Logo from "~/src/components/Logo";
+import MapaDinamico from "~/features/dashboard/components/MapaDinamico/MapaDinamico";
 
 export default function DashboardPage() {
   useAuthInterceptor();
@@ -188,14 +189,17 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          {/* SEÇÃO 2: MAPA DOS ESTADOS */}
-          {/* <section>
+          {/* SEÇÃO 2: MAPA DOS ESTADOS (Dinâmico com Highcharts) */}
+          <section>
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-ai-white mb-2">🗺️ Mapa dos Estados</h2>
-              <p className="text-ai-gray">Visualização geográfica da distribuição e impacto dos senadores</p>
+              <p className="text-ai-gray">Mapa único e dinâmico para múltiplas métricas</p>
             </div>
-            <EstadosMap data={dashboardData.senadores} />
-          </section> */}
+            <MapaDinamico 
+              mediaPorEstado={dashboardData.mediaPorEstado} 
+              impactoPorEstado={dashboardData.impactoPorEstado}
+            />
+          </section>
 
           {/* SEÇÃO 3: PERFIL DEMOGRÁFICO */}
           <section>

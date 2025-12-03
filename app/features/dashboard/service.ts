@@ -2,9 +2,10 @@ import { typedApiClient } from "~/features/apiClient/client";
 
 // Interfaces para os dados dos senadores
 export interface SenadorData {
-  estado: string | null;
+  estado: string;
   genero: string;
   idade: number;
+  educacao: number;
   impacto_ambiental: number;
   impacto_constitucional: number;
   impacto_economico: number;
@@ -13,10 +14,12 @@ export interface SenadorData {
   impacto_regional: number;
   impacto_social: number;
   impacto_tecnologico: number;
-  impacto_temporal: number;
   media: number;
   nome: string;
   partido: string;
+  saneamento_basico: number;
+  saude: number;
+  seguranca: number;
 }
 
 export interface DadosSenResponse {
@@ -27,6 +30,7 @@ export interface DadosSenResponse {
 
 // Interfaces para os dados das PECs
 export interface PecData {
+  educacao: number;
   impacto_ambiental: number;
   impacto_constitucional: number;
   impacto_economico: number;
@@ -35,10 +39,12 @@ export interface PecData {
   impacto_regional: number;
   impacto_social: number;
   impacto_tecnologico: number;
-  impacto_temporal: number;
   media: number;
   numero_pac: string;
   qualidade: string;
+  saneamento_basico: number;
+  saude: number;
+  seguranca: number;
 }
 
 export interface DadosPecResponse {
@@ -70,13 +76,26 @@ export interface ImpactoPorPartido {
   impacto_regional: number;
   impacto_social: number;
   impacto_tecnologico: number;
-  impacto_temporal: number;
+}
+
+export interface ImpactoPorEstado {
+  estado: string;
+  impacto_ambiental: number;
+  impacto_constitucional: number;
+  impacto_economico: number;
+  impacto_geopolitico: number;
+  impacto_politico_institucional: number;
+  impacto_regional: number;
+  impacto_social: number;
+  impacto_tecnologico: number;
+  quantidade: number;
 }
 
 export interface DashboardData {
   mediaPorPartido: MediaPorPartido[];
   mediaPorEstado: MediaPorEstado[];
   impactoPorPartido: ImpactoPorPartido[];
+  impactoPorEstado: ImpactoPorEstado[];
   senadores: SenadorData[];
   pecs: PecData[];
   totalSenadores: number;
@@ -164,7 +183,6 @@ class DashboardService {
       impacto_regional: number;
       impacto_social: number;
       impacto_tecnologico: number;
-      impacto_temporal: number;
     }>();
 
     senadores.forEach(senador => {
@@ -178,7 +196,6 @@ class DashboardService {
           impacto_regional: 0,
           impacto_social: 0,
           impacto_tecnologico: 0,
-          impacto_temporal: 0,
         };
 
         impactoPartidosMap.set(senador.partido, {
@@ -190,7 +207,6 @@ class DashboardService {
           impacto_regional: current.impacto_regional + senador.impacto_regional,
           impacto_social: current.impacto_social + senador.impacto_social,
           impacto_tecnologico: current.impacto_tecnologico + senador.impacto_tecnologico,
-          impacto_temporal: current.impacto_temporal + senador.impacto_temporal,
         });
       }
     });
@@ -201,17 +217,72 @@ class DashboardService {
     })).sort((a, b) => {
       const totalA = a.impacto_ambiental + a.impacto_constitucional + a.impacto_economico + 
                     a.impacto_geopolitico + a.impacto_politico_institucional + a.impacto_regional + 
-                    a.impacto_social + a.impacto_tecnologico + a.impacto_temporal;
+                    a.impacto_social + a.impacto_tecnologico;
       const totalB = b.impacto_ambiental + b.impacto_constitucional + b.impacto_economico + 
                     b.impacto_geopolitico + b.impacto_politico_institucional + b.impacto_regional + 
-                    b.impacto_social + b.impacto_tecnologico + b.impacto_temporal;
+                    b.impacto_social + b.impacto_tecnologico;
       return totalB - totalA;
     });
+
+    // Impacto por estado (média dos impactos)
+    const impactoEstadosMap = new Map<string, {
+      impacto_ambiental: number;
+      impacto_constitucional: number;
+      impacto_economico: number;
+      impacto_geopolitico: number;
+      impacto_politico_institucional: number;
+      impacto_regional: number;
+      impacto_social: number;
+      impacto_tecnologico: number;
+      count: number;
+    }>();
+
+    senadores.forEach(senador => {
+      if (senador.estado) {
+        const current = impactoEstadosMap.get(senador.estado) || {
+          impacto_ambiental: 0,
+          impacto_constitucional: 0,
+          impacto_economico: 0,
+          impacto_geopolitico: 0,
+          impacto_politico_institucional: 0,
+          impacto_regional: 0,
+          impacto_social: 0,
+          impacto_tecnologico: 0,
+          count: 0,
+        };
+
+        impactoEstadosMap.set(senador.estado, {
+          impacto_ambiental: current.impacto_ambiental + senador.impacto_ambiental,
+          impacto_constitucional: current.impacto_constitucional + senador.impacto_constitucional,
+          impacto_economico: current.impacto_economico + senador.impacto_economico,
+          impacto_geopolitico: current.impacto_geopolitico + senador.impacto_geopolitico,
+          impacto_politico_institucional: current.impacto_politico_institucional + senador.impacto_politico_institucional,
+          impacto_regional: current.impacto_regional + senador.impacto_regional,
+          impacto_social: current.impacto_social + senador.impacto_social,
+          impacto_tecnologico: current.impacto_tecnologico + senador.impacto_tecnologico,
+          count: current.count + 1,
+        });
+      }
+    });
+
+    const impactoPorEstado: ImpactoPorEstado[] = Array.from(impactoEstadosMap.entries()).map(([estado, data]) => ({
+      estado,
+      impacto_ambiental: data.count > 0 ? data.impacto_ambiental / data.count : 0,
+      impacto_constitucional: data.count > 0 ? data.impacto_constitucional / data.count : 0,
+      impacto_economico: data.count > 0 ? data.impacto_economico / data.count : 0,
+      impacto_geopolitico: data.count > 0 ? data.impacto_geopolitico / data.count : 0,
+      impacto_politico_institucional: data.count > 0 ? data.impacto_politico_institucional / data.count : 0,
+      impacto_regional: data.count > 0 ? data.impacto_regional / data.count : 0,
+      impacto_social: data.count > 0 ? data.impacto_social / data.count : 0,
+      impacto_tecnologico: data.count > 0 ? data.impacto_tecnologico / data.count : 0,
+      quantidade: data.count,
+    })).sort((a, b) => b.estado.localeCompare(a.estado));
 
     return {
       mediaPorPartido,
       mediaPorEstado,
       impactoPorPartido,
+      impactoPorEstado,
       senadores,
       pecs,
       totalSenadores: senadores.length,

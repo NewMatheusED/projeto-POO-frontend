@@ -19,4 +19,4 @@ export default defineConfig({
     // Expõe a variável API_URL para o cliente
     "import.meta.env.API_URL": JSON.stringify(process.env.API_URL),
   },
-});
+  });
